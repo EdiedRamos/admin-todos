@@ -10,11 +10,15 @@ Development steps to run the app
 docker compose up -d
 ```
 
-## Environment Variable
+### Environment Variable
 
 - Configure .env
 
-## Prisma
+### Set seed content
+
+- Just run `http://localhost:3000/api/v1/seed`
+
+## Prisma (Initial configuration)
 
 - Init prisma settings
 
