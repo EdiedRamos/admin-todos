@@ -10,13 +10,33 @@ Development steps to run the app
 docker compose up -d
 ```
 
+## Environment Variable
+
+- Configure .env
+
+## Prisma
+
+- Init prisma settings
+
+```
+npx prisma init
+```
+
+- Make migrations
+
+```
+npx prisma migration dev
+```
+
+- Generate client
+
+```
+npx prisma generate
+```
+
+## Dev Server
+
 - Run the development mode
-
-```
-yarn dev
-```
-
-or
 
 ```
 npm run dev
