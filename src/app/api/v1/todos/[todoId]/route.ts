@@ -12,6 +12,7 @@ interface Segments {
   params: Params;
 }
 
+// * All are required cuz PUT is for updating the complete entity | object
 const putSchema = yup.object({
   description: yup.string().required(),
   completed: yup.boolean().required(),
