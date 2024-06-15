@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
+interface TodoBody {
+  description: string;
+}
+
 function badRequest(message: Record<string, any>) {
   return NextResponse.json({ message }, { status: 400 });
 }
@@ -30,4 +34,17 @@ export async function GET(request: Request) {
 
   const todos = await prisma.todo.findMany(pagination);
   return NextResponse.json({ message: "todos", data: todos });
+}
+
+export async function POST(request: Request) {
+  const data: TodoBody = await request.json();
+
+  if (!data.description)
+    return badRequest({ message: "Description is required" });
+
+  const newTodo = await prisma.todo.create({
+    data: { description: data.description },
+  });
+
+  return NextResponse.json({ message: "Todo created", content: newTodo });
 }
