@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 interface Params {
@@ -18,11 +19,11 @@ const putSchema = yup.object({
 
 // * Methods response
 function notFound(message: Record<string, any>) {
-  return NextResponse.json({ message }, { status: 404 });
+  return NextResponse.json(message, { status: 404 });
 }
 
 function badRequest(message: Record<string, any>) {
-  return NextResponse.json({ message }, { status: 400 });
+  return NextResponse.json(message, { status: 400 });
 }
 
 export async function GET(request: Request, segments: Segments) {
@@ -51,6 +52,9 @@ export async function PUT(request: Request, segments: Segments) {
   } catch (error) {
     if (error instanceof yup.ValidationError) {
       return badRequest({ message: "Validation error", error: error.errors });
+    }
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return badRequest({ message: "Todo not found" });
     }
     return badRequest({ message: "Something went wrong" });
   }
