@@ -49,9 +49,6 @@ export async function POST(request: Request) {
 
     const { completed, description } = await postSchema.validate(data);
 
-    if (!data.description)
-      return badRequest({ message: "Description is required" });
-
     const newTodo = await prisma.todo.create({
       data: { description, completed },
     });
