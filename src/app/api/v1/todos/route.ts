@@ -1,3 +1,5 @@
+import * as yup from "yup";
+
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -5,11 +7,16 @@ interface TodoBody {
   description: string;
 }
 
+type QueryParam = string | null | number;
+
+const postSchema = yup.object({
+  description: yup.string().required(),
+  completed: yup.boolean().optional().default(false),
+});
+
 function badRequest(message: Record<string, any>) {
   return NextResponse.json({ message }, { status: 400 });
 }
-
-type QueryParam = string | null | number;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -37,14 +44,25 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const data: TodoBody = await request.json();
+  try {
+    const data: TodoBody = await request.json();
 
-  if (!data.description)
-    return badRequest({ message: "Description is required" });
+    const { completed, description } = await postSchema.validate(data);
 
-  const newTodo = await prisma.todo.create({
-    data: { description: data.description },
-  });
+    if (!data.description)
+      return badRequest({ message: "Description is required" });
 
-  return NextResponse.json({ message: "Todo created", content: newTodo });
+    const newTodo = await prisma.todo.create({
+      data: { description, completed },
+    });
+
+    return NextResponse.json({ message: "Todo created", content: newTodo });
+  } catch (error) {
+    if (error instanceof yup.ValidationError)
+      return badRequest({ message: "", error: error.errors });
+    return NextResponse.json(
+      { message: "Something went wrong", error },
+      { status: 500 }
+    );
+  }
 }
