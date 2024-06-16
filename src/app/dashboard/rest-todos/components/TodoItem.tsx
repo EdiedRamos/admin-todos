@@ -1,12 +1,23 @@
+"use client";
+
 import { FaCheckCircle } from "react-icons/fa";
 import React from "react";
 import { Todo } from "@prisma/client";
+import { updateTodo } from "../helpers/todos";
+import { useRouter } from "next/navigation";
 
 interface Props {
   todo: Todo;
 }
 
 export const TodoItem = ({ todo }: Props) => {
+  const router = useRouter();
+
+  const handleUpdate = async () => {
+    await updateTodo(todo.id, todo.description, !todo.completed);
+    router.refresh();
+  };
+
   return (
     <div
       className={`${
@@ -24,6 +35,7 @@ export const TodoItem = ({ todo }: Props) => {
               ? "text-green-500 hover:text-green-600"
               : "text-gray-300 hover:text-gray-400"
           }`}
+          onClick={handleUpdate}
         />
       </button>
     </div>
