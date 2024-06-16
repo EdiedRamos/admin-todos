@@ -1,7 +1,31 @@
+import {
+  IoCalendarOutline,
+  IoCheckboxOutline,
+  IoListOutline,
+} from "react-icons/io5";
+
 import { CiLogout } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
 import { SidebarItem } from "./SidebarItem";
+
+const menuItems = [
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: <IoCalendarOutline />,
+  },
+  {
+    title: "Dashboard",
+    path: "/dashboard/rest-todos",
+    icon: <IoCheckboxOutline />,
+  },
+  {
+    title: "Dashboard",
+    path: "/dashboard/server-todos",
+    icon: <IoListOutline />,
+  },
+];
 
 export const Sidebar = () => {
   return (
@@ -31,7 +55,11 @@ export const Sidebar = () => {
           </h5>
           <span className="hidden text-gray-400 lg:block">Admin</span>
         </div>
-        <SidebarItem />
+        <ul className="space-y-2 tracking-wide mt-8">
+          {menuItems.map((item) => (
+            <SidebarItem {...item} />
+          ))}
+        </ul>
       </div>
 
       <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t">
