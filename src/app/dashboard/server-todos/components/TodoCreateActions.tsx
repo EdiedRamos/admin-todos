@@ -12,10 +12,16 @@ export const TodoCreateActions = () => {
     event.preventDefault();
     if (description.trim().length === 0) return;
     await createTodoAction(description);
+    setDescription("");
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
+  };
+
+  const handleDelete = async () => {
+    // * This function can not be called directly in onClick cuz its a server action, and server actions only accepts plain objects, and a few built-ins
+    await deleteTodoAction();
   };
 
   return (
@@ -39,7 +45,7 @@ export const TodoCreateActions = () => {
       <span className="flex flex-1"></span>
 
       <button
-        onClick={deleteTodoAction}
+        onClick={handleDelete}
         type="button"
         className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all"
       >
