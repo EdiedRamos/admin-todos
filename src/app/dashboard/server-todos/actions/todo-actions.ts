@@ -19,3 +19,9 @@ export async function toggleTodo(
   revalidatePath("/dashboard/server-todos");
   return updated;
 }
+
+export async function createTodoAction(description: string): Promise<Todo> {
+  const newTodo = await prisma.todo.create({ data: { description } });
+  revalidatePath("/dashboard/server-todos");
+  return newTodo;
+}

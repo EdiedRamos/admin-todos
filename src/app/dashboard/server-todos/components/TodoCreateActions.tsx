@@ -3,19 +3,15 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import { IoTrashOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { createTodoAction } from "../actions/todo-actions";
 
 export const TodoCreateActions = () => {
   const [description, setDescription] = useState<string>("");
 
-  const router = useRouter();
-
   const handleSubmit = async (event: FormEvent) => {
-    // event.preventDefault();
-    // if (description.trim().length === 0) return;
-    // await createTodo(description);
-    // router.refresh();
-    // setDescription("");
+    event.preventDefault();
+    if (description.trim().length === 0) return;
+    await createTodoAction(description);
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
