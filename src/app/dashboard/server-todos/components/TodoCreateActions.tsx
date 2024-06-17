@@ -1,9 +1,9 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
+import { createTodoAction, deleteTodoAction } from "../actions/todo-actions";
 
 import { IoTrashOutline } from "react-icons/io5";
-import { createTodoAction } from "../actions/todo-actions";
 
 export const TodoCreateActions = () => {
   const [description, setDescription] = useState<string>("");
@@ -16,11 +16,6 @@ export const TodoCreateActions = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
-  };
-
-  const handleDelete = async () => {
-    // await deleteCompletedTodos();
-    // router.refresh();
   };
 
   return (
@@ -44,7 +39,7 @@ export const TodoCreateActions = () => {
       <span className="flex flex-1"></span>
 
       <button
-        onClick={handleDelete}
+        onClick={deleteTodoAction}
         type="button"
         className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all"
       >

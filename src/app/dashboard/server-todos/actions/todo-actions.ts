@@ -25,3 +25,8 @@ export async function createTodoAction(description: string): Promise<Todo> {
   revalidatePath("/dashboard/server-todos");
   return newTodo;
 }
+
+export async function deleteTodoAction() {
+  await prisma.todo.deleteMany({ where: { completed: true } });
+  revalidatePath("/dashboard/server-todos");
+}
