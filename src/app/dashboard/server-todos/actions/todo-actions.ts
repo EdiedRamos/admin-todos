@@ -4,10 +4,18 @@ import { Todo } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+// * Simulate calculation time
+async function sleep(seconds: number): Promise<string> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("awaken"), seconds * 1000);
+  });
+}
+
 export async function toggleTodo(
   id: string,
   completed: boolean
 ): Promise<Todo> {
+  await sleep(3);
   const todo = await prisma.todo.findFirst({ where: { id } });
   if (!todo) throw new Error(`Todo with id ${id} not found`);
 
