@@ -12,3 +12,14 @@ export async function updateTodo(
     },
   }).then((res) => res.json());
 }
+
+export async function createTodo(description: string) {
+  const body = { description };
+  await fetch("/api/v1/todos/", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
+}

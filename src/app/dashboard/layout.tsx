@@ -47,7 +47,7 @@ export default function DashboardLayout({
             </div>
           </div>
         </div>
-        <div className="px-6 pt-6">{children}</div>
+        <div className="px-6 pt-6 border-2">{children}</div>
       </div>
     </main>
   );
