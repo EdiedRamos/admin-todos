@@ -1,9 +1,9 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
+import { createTodo, deleteCompletedTodos } from "../helpers/todos";
 
 import { IoTrashOutline } from "react-icons/io5";
-import { createTodo } from "../helpers/todos";
 import { useRouter } from "next/navigation";
 
 export const TodoCreate = () => {
@@ -21,6 +21,11 @@ export const TodoCreate = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setDescription(event.target.value);
+  };
+
+  const handleDelete = async () => {
+    await deleteCompletedTodos();
+    router.refresh();
   };
 
   return (
@@ -44,12 +49,12 @@ export const TodoCreate = () => {
       <span className="flex flex-1"></span>
 
       <button
-        //TODO: onClick={ () => deleteCompleted() }
+        onClick={handleDelete}
         type="button"
         className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all"
       >
         <IoTrashOutline />
-        Delete
+        Eliminar completados
       </button>
     </form>
   );

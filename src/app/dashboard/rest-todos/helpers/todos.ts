@@ -23,3 +23,12 @@ export async function createTodo(description: string) {
     },
   }).then((res) => res.json());
 }
+
+export async function deleteCompletedTodos() {
+  await fetch("/api/v1/todos/", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
+}
