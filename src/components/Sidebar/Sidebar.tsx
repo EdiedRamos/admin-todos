@@ -6,6 +6,7 @@ import {
 
 import { CiLogout } from "react-icons/ci";
 import Image from "next/image";
+import { LiaCookieSolid } from "react-icons/lia";
 import Link from "next/link";
 import { SidebarItem } from "./SidebarItem";
 
@@ -24,6 +25,11 @@ const menuItems = [
     title: "Server Actions",
     path: "/dashboard/server-todos",
     icon: <IoListOutline />,
+  },
+  {
+    title: "Cookies",
+    path: "/dashboard/cookies",
+    icon: <LiaCookieSolid />,
   },
 ];
 
@@ -57,7 +63,7 @@ export const Sidebar = () => {
         </div>
         <ul className="space-y-2 tracking-wide mt-8">
           {menuItems.map((item) => (
-            <SidebarItem {...item} />
+            <SidebarItem key={item.path} {...item} />
           ))}
         </ul>
       </div>
