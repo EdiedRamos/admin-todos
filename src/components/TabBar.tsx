@@ -12,7 +12,10 @@ export const TabBar = ({
   currentTab = 1,
   tabOptions = [1, 2, 3, 4, 5],
 }: Props) => {
-  const [selected, setSelected] = useState<number>(currentTab);
+  const [selected, setSelected] = useState<number>(() => {
+    if (currentTab < 1 || currentTab > tabOptions.length) return 1;
+    return currentTab;
+  });
 
   const handleTabSelected = (tab: number) => {
     setSelected(tab);
