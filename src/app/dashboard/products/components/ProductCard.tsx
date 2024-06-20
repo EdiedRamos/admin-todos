@@ -5,6 +5,7 @@ import { IoAddCircleOutline, IoTrashOutline } from "react-icons/io5";
 import Image from "next/image";
 import type { Product } from "../interfaces";
 import { addProductToCart } from "@/cart/actions/cart.actions";
+import { useRouter } from "next/navigation";
 
 function generateArray(length: number): number[] {
   return Array(length)
@@ -17,8 +18,11 @@ interface Props {
 }
 
 export const ProductCard = ({ product }: Props) => {
+  const router = useRouter();
+
   const handleAddProduct = () => {
     addProductToCart(product.id);
+    router.refresh();
   };
 
   return (

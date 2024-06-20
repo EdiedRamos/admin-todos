@@ -1,12 +1,33 @@
 import { CiBellOn, CiChat1, CiMenuBurger, CiSearch } from "react-icons/ci";
 
 import { Sidebar } from "@/components";
+import { cookies } from "next/headers";
+
+function getTotalCartItems(): number {
+  const cookieStore = cookies();
+
+  const cart = cookieStore.get("cart");
+  if (!cart) return 0;
+
+  try {
+    const values = Object.values(JSON.parse(cart.value));
+    const ignoreCorruptedValues = values.filter(
+      (value) => !isNaN(Number(value))
+    );
+    const valuesAsNumberArray = ignoreCorruptedValues.map(Number);
+    return valuesAsNumberArray.reduce((prev, cur) => prev + cur, 0);
+  } catch {
+    return 0;
+  }
+}
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const totalCartItems = getTotalCartItems();
+
   return (
     <main>
       <Sidebar />
@@ -41,7 +62,8 @@ export default function DashboardLayout({
               <button className="flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
                 <CiChat1 size={25} />
               </button>
-              <button className="flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
+              <button className="flex items-center justify-center w-15 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
+                <p className="ml-2 font-medium">{totalCartItems}</p>
                 <CiBellOn size={25} />
               </button>
             </div>
