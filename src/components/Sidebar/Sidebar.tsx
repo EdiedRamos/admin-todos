@@ -6,6 +6,7 @@ import {
 
 import { CiLogout } from "react-icons/ci";
 import Image from "next/image";
+import { IoMdCart } from "react-icons/io";
 import { LiaCookieSolid } from "react-icons/lia";
 import Link from "next/link";
 import { SidebarItem } from "./SidebarItem";
@@ -30,6 +31,11 @@ const menuItems = [
     title: "Cookies",
     path: "/dashboard/cookies",
     icon: <LiaCookieSolid />,
+  },
+  {
+    title: "Products",
+    path: "/dashboard/products",
+    icon: <IoMdCart />,
   },
 ];
 
