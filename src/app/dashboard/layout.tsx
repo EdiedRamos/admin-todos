@@ -62,8 +62,10 @@ export default function DashboardLayout({
               <button className="flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
                 <CiChat1 size={25} />
               </button>
-              <button className="flex items-center justify-center w-15 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
-                <p className="ml-2 font-medium">{totalCartItems}</p>
+              <button className="flex items-center justify-center min-w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
+                {totalCartItems > 0 && (
+                  <p className="ml-2 font-medium">{totalCartItems}</p>
+                )}
                 <CiBellOn size={25} />
               </button>
             </div>
