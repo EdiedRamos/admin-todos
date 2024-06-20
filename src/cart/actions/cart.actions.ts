@@ -24,3 +24,9 @@ export function addProductToCart(id: string): void {
   }
   setCookie("cart", JSON.stringify(cartCookie));
 }
+
+export function deleteProductFromCart(id: string): void {
+  const cartCookie = getCartCookie();
+  delete cartCookie[id];
+  setCookie("cart", JSON.stringify(cartCookie));
+}
